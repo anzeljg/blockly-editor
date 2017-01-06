@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="sl">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="shortcut icon" href="favicon.ico" />
+
+	<title>Urejevalnik</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+	<!-- Blockly editor -->
+	<link href="blockly/local/editor.css" rel="stylesheet">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-default navbar-static-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+			    <a class="navbar-brand" href="index.html">ACM osnovnošolsko računalniško tekmovanje</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="http://tekmovanja.acm.si/rtk-os" title="ACM Tekmovanja: RTK-OŠ"><span class="fa fa-star-o"></span> RTK-OŠ</a></li>
+					<li><a href="http://tekmovanja.acm.si/bober" title="ACM Tekmovanja: Bober"></span><span class="fa fa-star-half-o"></span> Bober</a></li>
+					<li><a href="http://tekmovanja.acm.si/rtk" title="ACM Tekmovanja: RTK"></span><span class="fa fa-star"></span> RTK</a></li>
+					<li><a href="http://tekmovanja.acm.si/upm" title="ACM Tekmovanja: UPM"></span><span class="fa fa-star"></span><span class="fa fa-star"></span> UPM</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+		</nav>
+
+		<!-- Page Content -->
+        <br />
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-3">
+<!-- Task start -->
+<canvas id="mycanvas" style="background-color:#eee;border:1px solid #ccc;margin-bottom:10px;" width="310" height="280"></canvas>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Naloga</h3>
+  </div>
+  <div class="panel-body bg-info">
+    <p align="justify">Miha bi rad izračunal svojo povprečno oceno pri matematiki. V tem ocenjevalnem obdobju je dobil naslednje ocene: 4, 5 in 4.</p>
+    <p align="justify">V urejevalniku na desni je sestavil program, ki naj bi izračunal povprečno oceno, vendar ne deluje pravilno. Pomagaj mu in popravi program.</p>
+  </div>
+</div>
+<!-- Task end -->
+                    </div>
+					<div class="col-md-9">
+<!-- Editor start -->
+<table width="100%">
+  <tr id="tabRow" height="1em">
+    <td id="tab1_blocks" class="tabon">...</td>
+    <td class="tabmin">&nbsp;</td>
+    <td id="tab1_python" class="taboff">Python</td>
+    <td class="tabmin">&nbsp;</td>
+    <td class="tabmax" align="right">
+      <!--
+      <button type="button" class="btn btn-primary" id="runButton"><span class="fa fa-play"></span> Izvedi</button>
+      <button type="button" class="btn btn-primary" id="trashButton">Počisti</button>
+      //-->
+      <a href="#" class="btn btn-primary" onclick="runit()"><span class="fa fa-play"></span> Izvedi</a>
+      <a href="#" class="btn btn-primary" onclick="clearit()">Počisti</a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="5" id="content1_area"></td>
+  </tr>
+</table>
+<table width="100%">
+  <tr>
+    <td style="position:relative; height:450px;">
+      <div id="content1_blocks" class="content"></div>
+      <pre id="content1_python" class="content"></pre>
+    </td>
+  </tr>
+</table>
+<div style="margin-top:10px"><pre id="output"></pre></div>
+
+<xml id="toolbox" style="display: none">
+  <category name="{catLogic}" colour="200">
+    <block type="controls_if"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
+    <block type="logic_boolean"></block>
+  </category>
+  <category name="{catLoops}" colour="320">
+    <block type="controls_repeat_ext">
+      <value name="TIMES">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_whileUntil"></block>
+    <block type="controls_for">
+      <value name="FROM">
+        <shadow type="math_number">
+          <field name="NUM">0</field>
+        </shadow>
+      </value>
+      <value name="TO">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+      <value name="BY">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="controls_forEach"></block>
+    <block type="controls_flow_statements"></block>
+  </category>
+  <category name="{catMath}" colour="220">
+    <block type="math_number"></block>
+    <block type="math_arithmetic">
+      <value name="A">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="B">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_single">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">9</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_trig">
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">45</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_constant"></block>
+    <block type="math_modulo">
+      <value name="DIVIDEND">
+        <shadow type="math_number">
+          <field name="NUM">64</field>
+        </shadow>
+      </value>
+      <value name="DIVISOR">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="math_floor_division">
+      <value name="DIVIDEND">
+        <shadow type="math_number">
+          <field name="NUM">64</field>
+        </shadow>
+      </value>
+      <value name="DIVISOR">
+        <shadow type="math_number">
+          <field name="NUM">10</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <category name="{catLists}" colour="10">
+    <block type="lists_create_with">
+      <mutation items="0"></mutation>
+    </block>
+    <block type="lists_create_with"></block>
+    <block type="lists_length"></block>
+    <block type="lists_isEmpty"></block>
+    <block type="lists_getIndex">
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_setIndex">
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_getSublist">
+      <value name="LIST">
+        <block type="variables_get">
+          <field name="VAR">{listVariable}</field>
+        </block>
+      </value>
+    </block>
+    <block type="lists_sort"></block>
+  </category>
+  <category name="{catText}" colour="50">
+    <block type="text"></block>
+    <block type="text_join"></block>
+    <block type="text_print">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="text_prompt_ext">
+      <value name="TEXT">
+        <shadow type="text">
+          <field name="TEXT">abc</field>
+        </shadow>
+      </value>
+    </block>
+  </category>
+  <sep></sep>
+  <category name="{catVariables}" colour="280" custom="VARIABLE"></category>
+  <category name="{catFunctions}" colour="120" custom="PROCEDURE"></category>
+  <category name="{catTurtle}" colour="30">
+    <block type="turtle_move">
+      <field name="DIR">FORWARD</field>
+      <value name="VALUE">
+        <shadow type="math_number">
+          <field name="NUM">100</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="turtle_turn">
+      <field name="DIR">LEFT</field>
+      <value name="ANGLE">
+        <shadow type="math_number">
+          <field name="NUM">45</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="turtle_width">
+      <value name="WIDTH">
+        <shadow type="math_number">
+          <field name="NUM">2</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="turtle_pen">
+      <field name="PEN">DOWN</field>
+    </block>
+    <block type="turtle_show">
+      <field name="VISIBLE">SHOW</field>
+    </block>
+    <block type="turtle_shape">
+      <field name="SHAPE">CLASSIC</field>
+    </block>
+    <block type="turtle_setpos">
+      <field name="POSX">0</field>
+      <field name="POSY">0</field>
+    </block>
+    <block type="turtle_color">
+      <field name="COLOR">#000000</field>
+    </block>
+    <block type="turtle_bgcolor">
+      <field name="COLOR">#ffcc66</field>
+    </block>
+    <block type="turtle_circle">
+      <value name="RADIUS">
+        <shadow type="math_number">
+          <field name="NUM">20</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="turtle_arc">
+      <field name="RADIUS">20</field>
+      <field name="ANGLE">90</field>
+    </block>
+    <block type="turtle_pos"></block>
+    <block type="turtle_isdown"></block>
+    <block type="turtle_reset"></block>
+  </category>
+</xml>
+
+<xml id="workspace" style="display: none">
+  <block type="variables_set" id="Wtf3WAsg0-0w:@8GbHN^" x="20" y="20">
+    <field name="VAR">ena</field>
+    <value name="VALUE">
+      <block type="text_prompt_ext" id="=A7v5cb3U!Cmr?/C2tHT">
+        <mutation type="NUMBER"></mutation>
+        <field name="TYPE">NUMBER</field>
+        <value name="TEXT">
+          <shadow type="text" id="frbc(UG1~*,W9javLS|%">
+            <field name="TEXT">abc</field>
+          </shadow>
+          <block type="text" id="=j,bh]HijC1g^){I%$f(">
+            <field name="TEXT">Vnesi prvo oceno:</field>
+          </block>
+        </value>
+      </block>
+    </value>
+    <next>
+      <block type="variables_set" id="zVocdEsgff,zabEfZ(FQ">
+        <field name="VAR">dve</field>
+        <value name="VALUE">
+          <block type="text_prompt_ext" id="hb7H,cPMEk6)n7L=3P=H">
+            <mutation type="NUMBER"></mutation>
+            <field name="TYPE">NUMBER</field>
+            <value name="TEXT">
+              <shadow type="text" id="frbc(UG1~*,W9javLS|%">
+                <field name="TEXT">abc</field>
+              </shadow>
+              <block type="text" id="V}f6J3Vv#m|t5W4=egs9">
+                <field name="TEXT">Vnesi drugo oceno:</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set" id="):`W`)hwZYv*h|df@(2e">
+            <field name="VAR">tri</field>
+            <value name="VALUE">
+              <block type="text_prompt_ext" id="Izu|qelsKk!|n[nu7bpQ">
+                <mutation type="NUMBER"></mutation>
+                <field name="TYPE">NUMBER</field>
+                <value name="TEXT">
+                  <shadow type="text" id="frbc(UG1~*,W9javLS|%">
+                    <field name="TEXT">abc</field>
+                  </shadow>
+                  <block type="text" id="3~gEKDGI5h=s9WDU+Mzo">
+                    <field name="TEXT">Vnesi tretjo oceno:</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="r{1XIEyFzMG#|Kl?8}5M">
+                <field name="VAR">povprecje</field>
+                <value name="VALUE">
+                  <block type="math_arithmetic" id="n5lq/4qrWu{M`ql32X+`">
+                    <field name="OP">DIVIDE</field>
+                    <value name="A">
+                      <shadow type="math_number" id="#M)*^3Wj@N,+m.ve949Q">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="math_arithmetic" id="QT7Lw=Z+Fs_#`.my~W)f">
+                        <field name="OP">ADD</field>
+                        <value name="A">
+                          <shadow type="math_number" id="}@oUSQ.Pu|3QPrHv9WPs">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="math_arithmetic" id="y3,$IN1dSi1!RpQIinB{">
+                            <field name="OP">ADD</field>
+                            <value name="A">
+                              <shadow type="math_number" id="Z,bAG:?H}FX]v7#z!Ne_">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="variables_get" id="c45?{k.R6Df|6Lt}rtBv">
+                                <field name="VAR">ena</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <shadow type="math_number" id="|=)sUj*;LbLC;cj.5YJr">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="variables_get" id="V}f,8;7NXWGkm87F4=uQ">
+                                <field name="VAR">dve</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <shadow type="math_number" id="[[M_+EHoL10mQ4U.zC^I">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get" id="I^g6W.7pP=q@YS{zH#T8">
+                            <field name="VAR">tri</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number" id="MlAV|H:~Lx$c|%1a|$zd">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="math_number" id="DKNjHB]i@D(8.13T:IA=">
+                        <field name="NUM">4</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_print" id="bD-;=Qk?Ny)Lx{NY#TpW">
+                    <value name="TEXT">
+                      <shadow type="text" id="VW!n:a2w;c#Dem1zF|(V">
+                        <field name="TEXT">abc</field>
+                      </shadow>
+                      <block type="text_join" id="p2t{WFCMYY)};Muw%7}2">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
+                          <block type="text" id="I3)w-3(HEH])}vX`MnQ5">
+                            <field name="TEXT">Povprečna ocena je </field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="variables_get" id="|4VxB~^Kaa962wzVC1Bw">
+                            <field name="VAR">povprecje</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>
+<!-- Editor end -->
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /#page-content-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- jQuery -->
+	<script src="js/jquery.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.min.js"></script>
+
+<!-- Skulpt and CodeMirror -->
+<script src="skulpt/skulpt.js"></script>
+<script src="skulpt/skulpt-stdlib.js"></script>
+<script src="skulpt/python.js"></script>
+<script>Sk.python3 = true;</script>
+
+<script type="text/javascript">
+function outf(text) {
+  var mypre = document.getElementById("output");
+  mypre.innerHTML = mypre.innerHTML + text;
+}
+function builtinRead(x) {
+  if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+    throw "File not found: '" + x + "'";
+  return Sk.builtinFiles["files"][x];
+}
+function runit() {
+    var prog = Blockly.Python.workspaceToCode(CodeEditor.workspace);
+    var mypre = document.getElementById("output");
+    mypre.innerHTML = '';
+    Sk.canvas = "mycanvas";
+    Sk.pre = "output";
+    Sk.configure({output:outf, read:builtinRead});
+    try {
+        eval(Sk.importMainWithBody("<stdin>",false,prog));
+    }
+    catch(e) {
+        alert(e.toString())
+    }
+}
+function clearit() {
+    var mypre = document.getElementById("output");
+    mypre.innerHTML = '';
+    // Clear canvas
+    var c = document.getElementById("mycanvas");
+    var ctx = c.getContext("2d");
+    // Use the identity matrix while clearing the canvas
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0,0,310,280);
+    // Just to be safe also do that
+    ctx.fillStyle = "#eeeeee";
+    ctx.fillRect(0,0,310,280);
+    // Clear Blockly workspace
+    CodeEditor.workspace.clear();
+    window.location.hash = '';
+    // Load Blockly workspace initial content
+    Blockly.Xml.domToWorkspace(document.getElementById('workspace'), CodeEditor.workspace);
+}
+</script>
+
+<!-- Blockly -->
+<script src="blockly/storage.js"></script>
+<script src="blockly/blockly_compressed.js"></script>
+<script src="blockly/blocks_compressed.js"></script>
+<script src="blockly/javascript_compressed.js"></script>
+<script src="blockly/python_compressed.js"></script>
+<script src="blockly/local/custom_blocks.js"></script>
+<script src="blockly/local/turtle_blocks.js"></script>
+<script src="editor.js"></script>
+<script>
+  var elementID = "";
+  $("#runButton").click(function() {
+    elementID = "#output";
+  });
+  window.alert = function(msg) {
+    $(elementID).append(msg + "\n");
+  };
+</script>
+
+</body>
+</html>
